@@ -12,6 +12,7 @@ function App() {
   const {currentStep} = useContext(MultiStepContext)
 
   const showStep = (step) => {
+    
     switch(step) {
         case 1 : 
             return <FirstStep />
@@ -19,6 +20,8 @@ function App() {
             return <SecondStep />
         case 3 :
             return <ThirdStep />
+        default: 
+        return <FirstStep />
     }
 }
   return (

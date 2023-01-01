@@ -9,14 +9,9 @@ import PhoneInput from 'react-phone-number-input'
 import {MultiStepContext}  from '../../StepContext';
 
 const StepOne = () => {
-    const {setStep,  userData, setUserData, finalData, value, setValue } = useContext(MultiStepContext)
-    // const validate = () => {
-    //     if (userData.length > 1) {
-    //         setStep(2)
-    //     }else{
-    //         setStep(1)
-    //     }
-    // }
+    const {setStep,  userData, setUserData, value, setValue } = useContext(MultiStepContext)
+    
+
   return (
     <div className='step-one'>
         <div className="container">
