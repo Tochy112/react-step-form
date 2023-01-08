@@ -9,8 +9,10 @@ import PhoneInput from 'react-phone-number-input'
 import {MultiStepContext}  from '../../StepContext';
 
 const StepOne = () => {
-    const {setStep,  userData, setUserData, value, setValue } = useContext(MultiStepContext)
-    
+    const {setStep,  userData, setUserData, phone, setPhone } = useContext(MultiStepContext)
+    const handleStep = () => {
+        setStep(2)
+    }
 
   return (
     <div className='step-one'>
@@ -18,13 +20,14 @@ const StepOne = () => {
             <div className="form-div">
                 <h2>Sign Up</h2>
                 <h4>Start your journey with us today</h4>
-                <form>
+                <form onSubmit={handleStep}>
                     <div>
                         <TextField
                         placeholder="First name"
-                        onChange={(e)=> setUserData({...userData, "firstname" : e.target.value})}
-                        value={userData['firstname']}
+                        onChange={(e)=> setUserData({...userData, "firstName" : e.target.value})}
+                        value={userData['firstName']}
                         id="firstname"
+                        required
                         className='textfield'
                         sx={{width:300}}
                         InputProps={{
@@ -42,8 +45,9 @@ const StepOne = () => {
                         <TextField
                         placeholder="Last name"
                         sx={{width:300}}
-                        onChange={(e)=> setUserData({...userData, "lastname" : e.target.value})}
-                        value={userData['lastname']}
+                        required
+                        onChange={(e)=> setUserData({...userData, "lastName" : e.target.value})}
+                        value={userData['lastName']}
                         id="lastname"
                         className='textfield'
                         InputProps={{
@@ -61,6 +65,7 @@ const StepOne = () => {
                         <TextField
                         placeholder="Email"
                         sx={{width:300}}
+                        required
                         type="email"
                         onChange={(e)=> setUserData({...userData, "email" : e.target.value})}
                         value={userData['email']}
@@ -80,11 +85,13 @@ const StepOne = () => {
                     <div>
                         <PhoneInput 
                         className='phone'
+                        id="phone"
+                        required
                         international
                         countryCallingCodeEditable={false}
                         defaultCountry="NG"   
-                        value={value}
-                        onChange={setValue}                     
+                        value={phone}
+                        onChange={setPhone}                     
                         />
                     </div>
 
@@ -93,7 +100,7 @@ const StepOne = () => {
                             color="error"
                             className='btn'
                             sx={{width:300}}
-                            onClick={() => setStep(2)}
+                            onClick={handleStep}
                             >Create Account
                         </Button>
                     </div>

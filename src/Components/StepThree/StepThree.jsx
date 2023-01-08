@@ -10,8 +10,8 @@ import {MultiStepContext}  from '../../StepContext';
 
 
 const StepThree = () => {
-    const {setStep, currentStep, userData, setUserData, submitData } = useContext(MultiStepContext)
-
+    const {setStep, currentStep, userData, setUserData, submitData, handleSubmit } = useContext(MultiStepContext)
+    
 
   return (
     <div>
@@ -19,13 +19,14 @@ const StepThree = () => {
             <div className="form-div">
                 <h2>Secure Your Account</h2>
                 <h4>Add a question and a password to <br /> protect your account</h4>
-                <form action="">
+                <form onSubmit={handleSubmit}>
                     <div>
                         <TextField
                         placeholder="Password"
                         id="pass1"
                         className='textfield'
                         type="password"
+                        // required
                         sx={{width:300}}
                         onChange={(e)=> setUserData({...userData, "password" : e.target.value})}
                         value={userData['password']}
@@ -45,6 +46,7 @@ const StepThree = () => {
                         placeholder="Confirm password"
                         sx={{width:300}}
                         id="pass2"
+                        // required
                         className='textfield'
                         type="password"
                         onChange={(e)=> setUserData({...userData, "confirm_password" : e.target.value})}
@@ -64,6 +66,7 @@ const StepThree = () => {
                         <InputLabel id="select-label">Pick a question</InputLabel>
                         <Select
                         label="Age"
+                        // required
                         id="question"
                         variant="standard"
                         sx={{width: 300}}
@@ -81,6 +84,7 @@ const StepThree = () => {
                         <TextField
                         placeholder="Enter an answer"
                         sx={{width:300}}
+                        // required
                         id="answer"
                         className='textfield'                        
                         variant="standard"
@@ -95,6 +99,7 @@ const StepThree = () => {
                             color="error"
                             className='btn'
                             sx={{width:250}}
+                            type="submit"
                             onClick={() => submitData()}
                             >Finish
                         </Button>
