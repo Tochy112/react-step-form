@@ -10,8 +10,28 @@ import {MultiStepContext}  from '../../StepContext';
 
 
 const StepThree = () => {
-    const {setStep, currentStep, userData, setUserData, submitData, handleSubmit } = useContext(MultiStepContext)
-    
+    const {setStep, currentStep,setSecureUser, secureUser, setUserBio, setUserData} = useContext(MultiStepContext)
+    const API = "http://localhost:5010/user-service/api/v1/user/create"
+
+
+    const handleSubmit = () => {
+        try{
+             fetch(API, {
+                method: "POST",
+                body: {secureUser}
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
+
+            setStep(1)
+            setUserData("")
+            setUserBio("")
+            console.log(secureUser)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
 
   return (
     <div>
@@ -26,10 +46,10 @@ const StepThree = () => {
                         id="pass1"
                         className='textfield'
                         type="password"
-                        // required
+                        required
                         sx={{width:300}}
-                        onChange={(e)=> setUserData({...userData, "password" : e.target.value})}
-                        value={userData['password']}
+                        onChange={(e) => setSecureUser({...secureUser, "password": e.target.value})} 
+                        value={secureUser.password}
                         InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -40,17 +60,17 @@ const StepThree = () => {
                         variant="standard"
                         />
                     </div>
-                  
+                        {secureUser.password}
                     <div>
                         <TextField
                         placeholder="Confirm password"
                         sx={{width:300}}
                         id="pass2"
-                        // required
+                        required
                         className='textfield'
                         type="password"
-                        onChange={(e)=> setUserData({...userData, "confirm_password" : e.target.value})}
-                        value={userData['confirm_password']}
+                        onChange={(e) => setSecureUser({...secureUser, "confirm_password": e.target.value})} 
+                        value={secureUser.confirm_password}
                         InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -66,12 +86,12 @@ const StepThree = () => {
                         <InputLabel id="select-label">Pick a question</InputLabel>
                         <Select
                         label="Age"
-                        // required
+                        required
                         id="question"
                         variant="standard"
                         sx={{width: 300}}
-                        onChange={(e)=> setUserData({...userData, "question" : e.target.value})}
-                        value={userData['question']}
+                        onChange={(e) => setSecureUser({...secureUser, "question": e.target.value})} 
+                        value={secureUser.question}
                         >
                         <MenuItem value='Favourite dish'>The name of your favourite dish</MenuItem>
                         <MenuItem value='The name of your favourite cousin'>The name of your eldest cousin</MenuItem>
@@ -84,12 +104,12 @@ const StepThree = () => {
                         <TextField
                         placeholder="Enter an answer"
                         sx={{width:300}}
-                        // required
+                        required
                         id="answer"
                         className='textfield'                        
                         variant="standard"
-                        onChange={(e)=> setUserData({...userData, "answer" : e.target.value})}
-                        value={userData['answer']}
+                        onChange={(e) => setSecureUser({...secureUser, "answer": e.target.value})} 
+                        value={secureUser.answer}
                         />
                     </div>
 
@@ -100,7 +120,6 @@ const StepThree = () => {
                             className='btn'
                             sx={{width:250}}
                             type="submit"
-                            onClick={() => submitData()}
                             >Finish
                         </Button>
                     </div>

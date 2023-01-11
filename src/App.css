@@ -27,6 +27,13 @@ form{
 /* .container{
   height: 100vh;
 } */
+.fname,
+.lname,
+.email{
+  margin: 15px 0 !important;
+  margin: auto;
+}
+
 .textfield{
   margin: 15px 0 !important;
   margin: auto;

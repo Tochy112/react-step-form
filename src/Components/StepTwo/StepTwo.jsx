@@ -10,14 +10,34 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {MultiStepContext}  from '../../StepContext';
 
 const StepTwo = () => {
-    const {setStep, currentStep, userData, setUserData, dob, setDob } = useContext(MultiStepContext)
+    const {setStep, currentStep,setUserBio, userBio, dob, setDob} = useContext(MultiStepContext)
 
+    const API = "http://localhost:5010/user-service/api/v1/user/create"
+
+
+    const handleSubmit = () => {
+        try{
+             fetch(API, {
+                method: "POST",
+                body: {userBio, dob}
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
+
+            setStep(3)
+            console.log(userBio)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+   
   return (
     <div className='container'>
             <div className="form-div">
                 <h2>Fill Biodata</h2>
                 <h4>Basic information to help us know you better</h4>
-                <form action="">
+                <form onSubmit={handleSubmit}>
                     <div style={{width: '300px', margin:'auto'}}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
@@ -26,8 +46,8 @@ const StepTwo = () => {
                             id="dob"
                             value={dob}
                             onChange={(newdob) => {
-                            setDob(newdob);
-                            }}
+                                setDob(newdob)
+                              }}
                             renderInput={(params) => <TextField {...params} />}
                         />
                     </LocalizationProvider>
@@ -41,31 +61,14 @@ const StepTwo = () => {
                         label='Gender'
                         id="gender"
                         variant="standard"
-                        onChange={(e)=> setUserData({...userData, "gender" : e.target.value})}
-                        value={userData['gender']}
+                        onChange={(e) => setUserBio({...userBio, "gender": e.target.value})} 
+                        value={userBio.gender}
                         >
                         <MenuItem value='Male'>Male</MenuItem>
                         <MenuItem value='Female'>Female</MenuItem>
                         <MenuItem value='Other'>Other</MenuItem>
-                        
                         </Select>
                     </div>
-                  
-                    {/* <div style={{width: '300px', margin:'auto'}}>
-                        <InputLabel id="select-label">Age</InputLabel>
-                        <Select
-                        required
-                        id="age"
-                        variant="standard"
-                        sx={{width: 300}}
-                        onChange={(e)=> setUserData({...userData, "age" : e.target.value})}
-                        value={userData['age']}
-                        >
-                        <MenuItem value='20-30'>20-25</MenuItem>
-                        <MenuItem value='30-40'>30-40</MenuItem>
-                        <MenuItem value='40-60'>40-60</MenuItem>
-                        </Select>
-                    </div> */}
 
                     <div style={{width: '300px', margin:'auto'}}>
                         <InputLabel id="select-label">Marital status</InputLabel>
@@ -74,13 +77,25 @@ const StepTwo = () => {
                         id="status"
                         variant="standard"
                         sx={{width: 300}}
-                        onChange={(e)=> setUserData({...userData, "marital_status" : e.target.value})}
-                        value={userData['marital_status']}
+                        onChange={(e) => setUserBio({...userBio, "marital_status": e.target.value})} 
+                        value={userBio.marital_status}
                         >
                         <MenuItem value='single'>Single</MenuItem>
                         <MenuItem value='married'>Married</MenuItem>
                         <MenuItem value='divorced'>Divorced</MenuItem>
                         </Select>
+                    </div>
+
+                    <div>
+                        <TextField
+                        placeholder="Country"
+                        sx={{width:300}}
+                        required
+                        className='textfield'                        
+                        variant="standard"
+                        onChange={(e) => setUserBio({...userBio, "country": e.target.value})} 
+                        value={userBio.country}
+                        />
                     </div>
 
                     <div>
@@ -91,8 +106,8 @@ const StepTwo = () => {
                         id="answer"
                         className='textfield'                        
                         variant="standard"
-                        onChange={(e)=> setUserData({...userData, "city" : e.target.value})}
-                        value={userData['city']}
+                        onChange={(e) => setUserBio({...userBio, "city": e.target.value})} 
+                        value={userBio.city}
                         />
                     </div>
 
@@ -101,7 +116,7 @@ const StepTwo = () => {
                             color="error"
                             className='btn'
                             sx={{width:300}}
-                            onClick={() => setStep(3)}
+                            type="submit"
                             >Continue
                         </Button>
                     </div>
