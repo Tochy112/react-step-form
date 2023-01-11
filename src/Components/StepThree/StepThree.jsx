@@ -14,25 +14,6 @@ const StepThree = () => {
     const API = "http://localhost:5010/user-service/api/v1/user/:user_id/secure/account"
     
 
-    // const handleSubmit = () => {
-    //     try{
-    //          fetch(API, {
-    //             method: "POST",
-    //             body: {secureUser}
-    //         })
-    //         .then(res => res.json())
-    //         .then(data => console.log(data))
-
-    //         setStep(1)
-    //         setUserData("")
-    //         setUserBio("")
-    //         console.log(secureUser)
-    //     }
-    //     catch(err){
-    //         console.log(err)
-    //     }
-    // }
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {

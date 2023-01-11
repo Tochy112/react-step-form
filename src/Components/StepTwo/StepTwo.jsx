@@ -39,22 +39,7 @@ const StepTwo = () => {
         }
         
     }
-    // const handleSubmit = () => {
-    //     try{
-    //          fetch(API, {
-    //             method: "PUT",
-    //             body: {userBio, dob}
-    //         })
-    //         .then(res => res.json())
-    //         .then(data => console.log(data))
-
-    //         setStep(3)
-    //         console.log(userBio)
-    //     }
-    //     catch(err){
-    //         console.log(err)
-    //     }
-    // }
+   
    
   return (
     <div className='container'>
