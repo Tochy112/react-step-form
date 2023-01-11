@@ -12,25 +12,49 @@ import {MultiStepContext}  from '../../StepContext';
 const StepTwo = () => {
     const {setStep, currentStep,setUserBio, userBio, dob, setDob} = useContext(MultiStepContext)
 
-    const API = "http://localhost:5010/user-service/api/v1/user/create"
+    const API = "http://localhost:5010/user-service/api/v1/user/:id/update/bio"
 
-
-    const handleSubmit = () => {
-        try{
-             fetch(API, {
-                method: "POST",
-                body: {userBio, dob}
-            })
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+           const res =  fetch(
+            API, {
+                method: 'PUT',
+                headers: {
+                    'Accept' : 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                 body: JSON.stringify({
+                    userBio, dob
+                }),
+            }
+            )
             .then(res => res.json())
-            .then(data => console.log(data))
-
             setStep(3)
-            console.log(userBio)
+            if(res.status === 200){
+                console.log(userBio)
+            }
+        }catch(error){
+            console.log(error)
         }
-        catch(err){
-            console.log(err)
-        }
+        
     }
+    // const handleSubmit = () => {
+    //     try{
+    //          fetch(API, {
+    //             method: "PUT",
+    //             body: {userBio, dob}
+    //         })
+    //         .then(res => res.json())
+    //         .then(data => console.log(data))
+
+    //         setStep(3)
+    //         console.log(userBio)
+    //     }
+    //     catch(err){
+    //         console.log(err)
+    //     }
+    // }
    
   return (
     <div className='container'>

@@ -11,26 +11,58 @@ import {MultiStepContext}  from '../../StepContext';
 
 const StepThree = () => {
     const {setStep, currentStep,setSecureUser, secureUser, setUserBio, setUserData} = useContext(MultiStepContext)
-    const API = "http://localhost:5010/user-service/api/v1/user/create"
+    const API = "http://localhost:5010/user-service/api/v1/user/:user_id/secure/account"
+    
 
+    // const handleSubmit = () => {
+    //     try{
+    //          fetch(API, {
+    //             method: "POST",
+    //             body: {secureUser}
+    //         })
+    //         .then(res => res.json())
+    //         .then(data => console.log(data))
 
-    const handleSubmit = () => {
-        try{
-             fetch(API, {
-                method: "POST",
-                body: {secureUser}
-            })
+    //         setStep(1)
+    //         setUserData("")
+    //         setUserBio("")
+    //         console.log(secureUser)
+    //     }
+    //     catch(err){
+    //         console.log(err)
+    //     }
+    // }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+           const res =  fetch(
+            API, {
+                method: 'POST',
+                headers: {
+                    'Accept' : 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                 body: JSON.stringify({
+                    secureUser
+                }),
+            }
+            )
             .then(res => res.json())
-            .then(data => console.log(data))
-
-            setStep(1)
-            setUserData("")
-            setUserBio("")
-            console.log(secureUser)
+            // let resjson = await res.json()
+            if(res.status === 200){
+                console.log(secureUser)
+                setStep(1)
+                setUserData("")
+                setUserBio("")
+                alert("Account created successfully")
+            }else{
+                alert("Could not connect to server")
+            }
+        }catch(error){
+            console.log(error)
         }
-        catch(err){
-            console.log(err)
-        }
+        
     }
 
   return (
@@ -60,7 +92,7 @@ const StepThree = () => {
                         variant="standard"
                         />
                     </div>
-                        {secureUser.password}
+
                     <div>
                         <TextField
                         placeholder="Confirm password"

@@ -12,33 +12,35 @@ const StepOne = () => {
     const {setStep, userData, setUserData} = useContext(MultiStepContext)
 
     const [phone, setPhone] = useState("")
-
-    // const handlePhone = (e) => {
-    //     setPhone({
-    //         ...phone,
-    //         [e.target.name]: e.target.value
-    //     })
-    // }
-
     const API = "http://localhost:5010/user-service/api/v1/user/create"
 
 
-    const handleSubmit = () => {
-        try{
-             fetch(API, {
-                method: "POST",
-                body: {userData, phone}
-            })
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+           const res =  fetch(
+            API, {
+                method: 'POST',
+                headers: {
+                    'Accept' : 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                 body: JSON.stringify({
+                    userData, phone
+                }),
+            }
+            )
             .then(res => res.json())
-            .then(data => console.log(data))
-
             setStep(2)
-            console.log(userData, phone)
+            if(res.status === 200){
+                console.log(userData)
+            }
+        }catch(error){
+            console.log(error)
         }
-        catch(err){
-            console.log(err)
-        }
+        
     }
+
 
   return (
     <div className='step-one'>
