@@ -7,6 +7,8 @@ import InputLabel from '@mui/material/InputLabel'
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import {MultiStepContext}  from '../../StepContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const StepThree = () => {
@@ -36,9 +38,9 @@ const StepThree = () => {
                 setStep(1)
                 setUserData("")
                 setUserBio("")
-                alert("Account created successfully")
+                toast.success("Account created successfully")
             }else{
-                alert("Could not connect to server")
+                toast.error("Could not connect to server")
             }
         }catch(error){
             console.log(error)
@@ -49,6 +51,7 @@ const StepThree = () => {
   return (
     <div>
          <div className="container">
+         <ToastContainer />
             <div className="form-div">
                 <h2>Secure Your Account</h2>
                 <h4>Add a question and a password to <br /> protect your account</h4>

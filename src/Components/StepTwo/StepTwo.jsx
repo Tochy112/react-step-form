@@ -45,7 +45,7 @@ const StepTwo = () => {
     <div className='container'>
             <div className="form-div">
                 <h2>Fill Biodata</h2>
-                <h4>Basic information to help us know you better</h4>
+                <h4>Basic information to help us <br /> know you better</h4>
                 <form onSubmit={handleSubmit}>
                     <div style={{width: '300px', margin:'auto'}}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
